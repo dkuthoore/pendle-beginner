@@ -196,8 +196,11 @@ const Navbar: React.FC = () => {
                     </div>
                     <div>
                       <h3 className="text-white text-sm font-medium">
-                        {quest.name}
+                        {quest.name.split(' - ')[0]}
                       </h3>
+                      <p className="text-gray-400 text-xs mt-1">
+                        {quest.name.split(' - ')[1] || ""}
+                      </p>
                       <p className="text-gray-400 text-xs mt-1">
                         {quest.completed ? "Completed" : "In progress"}
                       </p>
