@@ -2,14 +2,12 @@
 # Pendle Finance Demo UI
 
 ## Overview
-This is a simplified demo UI for Pendle Finance, a DeFi yield trading platform. The application showcases how users can interact with fixed yield products, liquidity pools, and yield trading markets in a user-friendly interface.
+This is a simplified demo UI for Pendle Finance, a DeFi yield trading platform. The application showcases how first-time users and beginners  can interact with Pendle in a simplified, user-friendly interface.
 
 ## Features
 - **Beginner/Advanced Mode Toggle**: Users can switch between simplified and advanced views based on their familiarity with DeFi.
-- **Fixed Yield Markets**: Lock in guaranteed returns by holding until maturity.
-- **Liquidity Pools**: Earn fees by providing liquidity to yield trading markets.
-- **Yield Trading**: Buy and sell future yields to optimize returns.
-- **Quest System**: Complete tasks to track progress and earn rewards.
+- **Simplified Product Offerings**: Users can choose one of three products, to simplify the UI and UX.
+- **Quest System**: Gamified Quests incentivize users to try different types of transactions, track progress, and earn rewards.
 
 ## Tech Stack
 - **Frontend**: React with TypeScript, TailwindCSS
