@@ -40,7 +40,7 @@ const Navbar: React.FC = () => {
       name: "📈 Yield Tradooor - Buy a YT token",
       completed: false,
     },
-    { id: "quest4", name: "🥳 Certified Pendle Degen", completed: false },
+    { id: "quest4", name: "🥳 Certified Pendle Degen - You have completed all Quests!", completed: false },
   ];
 
   const toggleQuestSidebar = () => {
