@@ -21,7 +21,7 @@ const FixedYieldMarkets: React.FC = () => {
           <div>
             <h1 className="text-2xl font-bold text-white mb-2">Fixed Yield Markets</h1>
             <p className="text-gray-300 flex items-center">
-              Lock in a guaranteed return on your assets until maturity
+              Lock in a guaranteed return on your assets by holding until maturity
               <InfoIcon className="h-4 w-4 ml-2 text-gray-400" />
             </p>
           </div>

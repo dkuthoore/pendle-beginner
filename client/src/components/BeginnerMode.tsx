@@ -30,7 +30,7 @@ const BeginnerMode: React.FC = () => {
             Earn a Fixed Yield
           </h2>
           <p className="text-gray-300 text-center mb-6">
-            Lock in a guaranteed return on your assets until maturity.
+            Lock in a guaranteed return on your assets by holding until maturity.
           </p>
           <div className="bg-[#151f35] p-5 rounded-lg mb-6">
             <div className="flex justify-between mb-3">
@@ -38,7 +38,7 @@ const BeginnerMode: React.FC = () => {
               <span className="text-xl font-semibold text-[#00bfa5]">10.15%</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-sm text-gray-300">Lock Period</span>
+              <span className="text-sm text-gray-300">Average Maturity Date</span>
               <span className="text-sm text-white">3 months</span>
             </div>
           </div>
