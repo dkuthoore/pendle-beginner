@@ -3,7 +3,7 @@ import Navbar from "@/components/Navbar";
 import BeginnerMode from "@/components/BeginnerMode";
 import AdvancedMode from "@/components/AdvancedMode";
 import { useMode } from "@/context/ModeContext";
-import { useLocation } from "wouter";
+import { Route, Switch, useLocation } from "wouter";
 import { useState, useEffect } from "react";
 
 // Import market components
@@ -30,35 +30,28 @@ function App() {
     return null;
   }
 
-  // Determine which component to render based on mode
-  const renderMainContent = () => {
-    console.log("Rendering main content with mode:", mode);
-    
-    // Advanced mode always shows the unified market view
-    if (mode === 'advanced') {
-      console.log("Rendering AdvancedMode");
-      return <AdvancedMode />;
-    }
-    
-    // Beginner mode can either show the launcher or a specific market
-    if (location === "/fixed-yield") {
-      return <FixedYieldMarkets />;
-    } else if (location === "/liquidity-pools") {
-      return <LiquidityPoolMarkets />;
-    } else if (location === "/yield-trading") {
-      return <LongYieldMarkets />;
-    } else {
-      // Home route for beginner mode
-      console.log("Rendering BeginnerMode");
-      return <BeginnerMode />;
-    }
-  };
-
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#050b17] to-[#0a1324] text-white">
       <Navbar />
       <main>
-        {renderMainContent()}
+        <Switch>
+          <Route path="/advanced">
+            <AdvancedMode />
+          </Route>
+          <Route path="/fixed-yield">
+            <FixedYieldMarkets />
+          </Route>
+          <Route path="/liquidity-pools">
+            <LiquidityPoolMarkets />
+          </Route>
+          <Route path="/yield-trading">
+            <LongYieldMarkets />
+          </Route>
+          <Route>
+            {/* Default route - show beginner or advanced mode based on context */}
+            {mode === 'beginner' ? <BeginnerMode /> : <AdvancedMode />}
+          </Route>
+        </Switch>
       </main>
       <Toaster />
     </div>

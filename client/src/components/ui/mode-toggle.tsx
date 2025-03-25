@@ -1,13 +1,22 @@
 import React from "react";
 import { useMode, Mode } from "@/context/ModeContext";
+import { useLocation } from "wouter";
 
 export function ModeToggle() {
   const { mode, setMode } = useMode();
+  const [, navigate] = useLocation();
 
-  // Function to set mode directly
+  // Function to switch modes and navigate to the appropriate route
   const switchMode = (newMode: Mode) => {
     console.log(`Switching to ${newMode} mode`);
     setMode(newMode);
+    
+    // Navigate to the appropriate route based on the mode
+    if (newMode === 'advanced') {
+      navigate('/advanced');
+    } else {
+      navigate('/'); // Navigate to home for beginner mode
+    }
   };
 
   return (

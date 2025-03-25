@@ -18,10 +18,10 @@ const Navbar: React.FC = () => {
   
   // Example quest data
   const quests: Quest[] = [
-    { id: "quest1", name: "Buy PT - Earn Fixed Yield", completed: false },
-    { id: "quest2", name: "LP - Provide Liquidity", completed: false },
-    { id: "quest3", name: "Buy YT and hold to maturity - Trade Yield", completed: false },
-    { id: "quest4", name: "Trade between YTs and PTs - Pendle Expert", completed: false }
+    { id: "quest1", name: "Fixed Yield Earnooor - Buy a PT Token", completed: false },
+    { id: "quest2", name: "Liquidity Providooor - LP in a Pool", completed: false },
+    { id: "quest3", name: "Yield Tradooor - Buy a YT token", completed: false },
+    { id: "quest4", name: "Pendle Degen", completed: false }
   ];
 
   const toggleQuestSidebar = () => {
