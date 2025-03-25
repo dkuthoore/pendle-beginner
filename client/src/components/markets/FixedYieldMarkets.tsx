@@ -79,7 +79,7 @@ const FixedYieldMarkets: React.FC = () => {
                   <td className="px-6 py-4 text-white font-semibold">{market.fixedAPY}</td>
                   <td className="px-6 py-4 text-right">
                     <button className="bg-[#00bfa5] hover:bg-opacity-90 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-300 text-sm">
-                      Lock Funds
+                      Start Earning
                     </button>
                   </td>
                 </tr>
