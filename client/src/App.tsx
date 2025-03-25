@@ -12,7 +12,7 @@ import LiquidityPoolMarkets from "@/components/markets/LiquidityPoolMarkets";
 import LongYieldMarkets from "@/components/markets/LongYieldMarkets";
 
 function App() {
-  const { mode } = useMode();
+  const { mode, setMode } = useMode();
   const [location] = useLocation();
   const [mounted, setMounted] = useState(false);
 
@@ -20,6 +20,15 @@ function App() {
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  // Synchronize URL location with mode
+  useEffect(() => {
+    if (location === '/advanced' && mode !== 'advanced') {
+      setMode('advanced');
+    } else if (location === '/' && mode !== 'beginner') {
+      setMode('beginner');
+    }
+  }, [location, mode, setMode]);
 
   // Log mode changes in App component
   useEffect(() => {
@@ -48,8 +57,8 @@ function App() {
             <LongYieldMarkets />
           </Route>
           <Route>
-            {/* Default route - show beginner or advanced mode based on context */}
-            {mode === 'beginner' ? <BeginnerMode /> : <AdvancedMode />}
+            {/* Default route - always show beginner mode */}
+            <BeginnerMode />
           </Route>
         </Switch>
       </main>

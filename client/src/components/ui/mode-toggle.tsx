@@ -1,21 +1,44 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useMode, Mode } from "@/context/ModeContext";
 import { useLocation } from "wouter";
 
 export function ModeToggle() {
   const { mode, setMode } = useMode();
-  const [, navigate] = useLocation();
+  const [location, navigate] = useLocation();
 
-  // Function to switch modes and navigate to the appropriate route
-  const switchMode = (newMode: Mode) => {
-    console.log(`Switching to ${newMode} mode`);
+  // If we're on the advanced page, make sure mode is set to advanced
+  useEffect(() => {
+    if (location === '/advanced' && mode !== 'advanced') {
+      setMode('advanced');
+    }
+  }, [location, mode, setMode]);
+
+  // Function to toggle between modes and navigate to the appropriate route
+  const toggleMode = () => {
+    const newMode = mode === 'beginner' ? 'advanced' : 'beginner';
+    console.log(`Toggling from ${mode} to ${newMode} mode`);
+    
     setMode(newMode);
     
-    // Navigate to the appropriate route based on the mode
+    // Navigate to the appropriate route based on the new mode
     if (newMode === 'advanced') {
       navigate('/advanced');
     } else {
       navigate('/'); // Navigate to home for beginner mode
+    }
+  };
+
+  // Function to specifically switch to a mode
+  const switchMode = (newMode: Mode) => {
+    if (mode === newMode) return; // Don't do anything if already in this mode
+    
+    console.log(`Switching to ${newMode} mode`);
+    setMode(newMode);
+    
+    if (newMode === 'advanced') {
+      navigate('/advanced');
+    } else {
+      navigate('/');
     }
   };
 
@@ -32,7 +55,7 @@ export function ModeToggle() {
       {/* Toggle switch */}
       <button 
         aria-label={`Switch to ${mode === 'beginner' ? 'advanced' : 'beginner'} mode`}
-        onClick={() => switchMode(mode === 'beginner' ? 'advanced' : 'beginner')}
+        onClick={toggleMode}
         className="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in focus:outline-none focus:ring-2 focus:ring-[#00bfa5]"
       >
         <div

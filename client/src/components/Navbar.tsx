@@ -21,7 +21,7 @@ const Navbar: React.FC = () => {
     { id: "quest1", name: "Fixed Yield Earnooor - Buy a PT Token", completed: false },
     { id: "quest2", name: "Liquidity Providooor - LP in a Pool", completed: false },
     { id: "quest3", name: "Yield Tradooor - Buy a YT token", completed: false },
-    { id: "quest4", name: "Pendle Degen", completed: false }
+    { id: "quest4", name: "Certified Pendle Degen", completed: false }
   ];
 
   const toggleQuestSidebar = () => {
