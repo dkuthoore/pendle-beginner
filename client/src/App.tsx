@@ -21,28 +21,42 @@ function App() {
     setMounted(true);
   }, []);
 
+  // Log mode changes in App component
+  useEffect(() => {
+    console.log("App component - current mode:", mode);
+  }, [mode]);
+
   if (!mounted) {
     return null;
   }
+
+  // Determine which component to render based on mode
+  const renderMainContent = () => {
+    console.log("Rendering main content with mode:", mode);
+    
+    if (location === "/fixed-yield") {
+      return <FixedYieldMarkets />;
+    } else if (location === "/liquidity-pools") {
+      return <LiquidityPoolMarkets />;
+    } else if (location === "/yield-trading") {
+      return <LongYieldMarkets />;
+    } else {
+      // Home route
+      if (mode === 'beginner') {
+        console.log("Rendering BeginnerMode");
+        return <BeginnerMode />;
+      } else {
+        console.log("Rendering AdvancedMode");
+        return <AdvancedMode />;
+      }
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#050b17] to-[#0a1324] text-white">
       <Navbar />
       <main>
-        <Switch>
-          <Route path="/fixed-yield">
-            <FixedYieldMarkets />
-          </Route>
-          <Route path="/liquidity-pools">
-            <LiquidityPoolMarkets />
-          </Route>
-          <Route path="/yield-trading">
-            <LongYieldMarkets />
-          </Route>
-          <Route path="/">
-            {mode === 'beginner' ? <BeginnerMode /> : <AdvancedMode />}
-          </Route>
-        </Switch>
+        {renderMainContent()}
       </main>
       <Toaster />
     </div>

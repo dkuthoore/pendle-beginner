@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 
 type Mode = 'beginner' | 'advanced';
 
@@ -16,11 +16,24 @@ const ModeContext = createContext<ModeContextType>({
 export function ModeProvider({ children }: { children: ReactNode }) {
   const [mode, setMode] = useState<Mode>('beginner');
 
+  // Log when mode changes
+  useEffect(() => {
+    console.log("Mode changed to:", mode);
+  }, [mode]);
+
   const toggleMode = (value?: Mode) => {
+    console.log("toggleMode called with:", value);
+    
     if (value) {
+      console.log("Setting mode directly to:", value);
       setMode(value);
     } else {
-      setMode(prevMode => prevMode === 'beginner' ? 'advanced' : 'beginner');
+      console.log("Toggling from current mode:", mode);
+      setMode(prevMode => {
+        const newMode = prevMode === 'beginner' ? 'advanced' : 'beginner';
+        console.log("New mode will be:", newMode);
+        return newMode;
+      });
     }
   };
 
@@ -33,5 +46,8 @@ export function ModeProvider({ children }: { children: ReactNode }) {
 
 export function useMode() {
   const context = useContext(ModeContext);
+  if (!context) {
+    throw new Error("useMode must be used within a ModeProvider");
+  }
   return context;
 }
