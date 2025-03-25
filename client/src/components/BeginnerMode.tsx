@@ -112,21 +112,6 @@ const BeginnerMode: React.FC = () => {
           </button>
         </div>
       </div>
-
-      <div className="mt-20 text-center">
-        <h3 className="text-2xl font-semibold text-white mb-4">
-          Ready for more advanced options?
-        </h3>
-        <p className="text-gray-300 mb-6">
-          Switch to Advanced Mode to access all features
-        </p>
-        <button 
-          className="bg-[#151f35] hover:bg-[#1a2b46] text-white font-medium py-4 px-8 rounded-lg transition-colors duration-300 border border-[#2c3e61]"
-          onClick={() => toggleMode('advanced')}
-        >
-          Switch to Advanced Mode
-        </button>
-      </div>
     </div>
   );
 };
