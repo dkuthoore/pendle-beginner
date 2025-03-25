@@ -1,44 +1,53 @@
-import React, { useEffect } from "react";
-import { useMode, Mode } from "@/context/ModeContext";
+import React, { useState, useEffect } from "react";
+import { useMode } from "@/context/ModeContext";
 import { useLocation } from "wouter";
 
 export function ModeToggle() {
   const { mode, setMode } = useMode();
-  const [location, navigate] = useLocation();
+  const [, navigate] = useLocation();
+  
+  // Track if toggle is in advanced mode internally to guarantee UI state
+  const [isAdvanced, setIsAdvanced] = useState(mode === 'advanced');
 
-  // If we're on the advanced page, make sure mode is set to advanced
+  // Keep the internal state in sync with the context mode
   useEffect(() => {
-    if (location === '/advanced' && mode !== 'advanced') {
-      setMode('advanced');
-    }
-  }, [location, mode, setMode]);
+    setIsAdvanced(mode === 'advanced');
+  }, [mode]);
 
-  // Function to toggle between modes and navigate to the appropriate route
-  const toggleMode = () => {
-    const newMode = mode === 'beginner' ? 'advanced' : 'beginner';
-    console.log(`Toggling from ${mode} to ${newMode} mode`);
+  // Toggle handler - completely isolated logic
+  const handleToggle = () => {
+    // Toggle the internal state first
+    const newAdvanced = !isAdvanced;
+    setIsAdvanced(newAdvanced);
     
-    setMode(newMode);
+    // Log for debugging
+    console.log(`Toggle clicked: Changing to ${newAdvanced ? 'advanced' : 'beginner'} mode`);
     
-    // Navigate to the appropriate route based on the new mode
-    if (newMode === 'advanced') {
-      navigate('/advanced');
-    } else {
-      navigate('/'); // Navigate to home for beginner mode
-    }
-  };
-
-  // Function to specifically switch to a mode
-  const switchMode = (newMode: Mode) => {
-    if (mode === newMode) return; // Don't do anything if already in this mode
+    // Update the context mode
+    setMode(newAdvanced ? 'advanced' : 'beginner');
     
-    console.log(`Switching to ${newMode} mode`);
-    setMode(newMode);
-    
-    if (newMode === 'advanced') {
+    // Navigate to the correct route
+    if (newAdvanced) {
       navigate('/advanced');
     } else {
       navigate('/');
+    }
+  };
+
+  // Click on text label handlers
+  const handleBeginnerClick = () => {
+    if (isAdvanced) {
+      setIsAdvanced(false);
+      setMode('beginner');
+      navigate('/');
+    }
+  };
+
+  const handleAdvancedClick = () => {
+    if (!isAdvanced) {
+      setIsAdvanced(true);
+      setMode('advanced');
+      navigate('/advanced');
     }
   };
 
@@ -46,34 +55,34 @@ export function ModeToggle() {
     <div className="flex items-center">
       {/* Beginner label */}
       <span 
-        className={`mr-3 text-sm font-medium ${mode === 'beginner' ? 'text-white' : 'text-gray-300'} cursor-pointer`}
-        onClick={() => switchMode('beginner')}
+        className={`mr-3 text-sm font-medium ${!isAdvanced ? 'text-white' : 'text-gray-300'} cursor-pointer`}
+        onClick={handleBeginnerClick}
       >
         Beginner
       </span>
       
       {/* Toggle switch */}
       <button 
-        aria-label={`Switch to ${mode === 'beginner' ? 'advanced' : 'beginner'} mode`}
-        onClick={toggleMode}
-        className="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in focus:outline-none focus:ring-2 focus:ring-[#00bfa5]"
+        type="button"
+        aria-label={`Toggle to ${isAdvanced ? 'beginner' : 'advanced'} mode`}
+        onClick={handleToggle}
+        className="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in focus:outline-none"
       >
+        {/* The switch track */}
+        <div className={`block h-6 rounded-full cursor-pointer ${isAdvanced ? 'bg-[#00bfa5]' : 'bg-gray-700'}`} />
+        
+        {/* The switch thumb */}
         <div
-          className={`absolute block w-6 h-6 rounded-full bg-white border-4 cursor-pointer transition-transform duration-200 ease-in ${
-            mode === 'advanced' ? 'translate-x-6 border-[#00bfa5]' : 'translate-x-0 border-gray-300'
-          }`}
-        />
-        <div
-          className={`block overflow-hidden h-6 rounded-full cursor-pointer ${
-            mode === 'advanced' ? 'bg-[#00bfa5]' : 'bg-gray-700'
+          className={`absolute top-0 left-0 block w-6 h-6 rounded-full bg-white border-4 cursor-pointer transform transition-transform duration-200 ease-in ${
+            isAdvanced ? 'translate-x-6 border-[#00bfa5]' : 'translate-x-0 border-gray-300'
           }`}
         />
       </button>
       
       {/* Advanced label */}
       <span 
-        className={`text-sm font-medium ${mode === 'advanced' ? 'text-white' : 'text-gray-300'} cursor-pointer`}
-        onClick={() => switchMode('advanced')}
+        className={`text-sm font-medium ${isAdvanced ? 'text-white' : 'text-gray-300'} cursor-pointer`}
+        onClick={handleAdvancedClick}
       >
         Advanced
       </span>
