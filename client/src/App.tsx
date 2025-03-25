@@ -3,7 +3,7 @@ import Navbar from "@/components/Navbar";
 import BeginnerMode from "@/components/BeginnerMode";
 import AdvancedMode from "@/components/AdvancedMode";
 import { useMode } from "@/context/ModeContext";
-import { Route, Switch, useLocation } from "wouter";
+import { useLocation } from "wouter";
 import { useState, useEffect } from "react";
 
 // Import market components
@@ -34,6 +34,13 @@ function App() {
   const renderMainContent = () => {
     console.log("Rendering main content with mode:", mode);
     
+    // Advanced mode always shows the unified market view
+    if (mode === 'advanced') {
+      console.log("Rendering AdvancedMode");
+      return <AdvancedMode />;
+    }
+    
+    // Beginner mode can either show the launcher or a specific market
     if (location === "/fixed-yield") {
       return <FixedYieldMarkets />;
     } else if (location === "/liquidity-pools") {
@@ -41,14 +48,9 @@ function App() {
     } else if (location === "/yield-trading") {
       return <LongYieldMarkets />;
     } else {
-      // Home route
-      if (mode === 'beginner') {
-        console.log("Rendering BeginnerMode");
-        return <BeginnerMode />;
-      } else {
-        console.log("Rendering AdvancedMode");
-        return <AdvancedMode />;
-      }
+      // Home route for beginner mode
+      console.log("Rendering BeginnerMode");
+      return <BeginnerMode />;
     }
   };
 

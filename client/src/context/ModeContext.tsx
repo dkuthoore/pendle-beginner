@@ -1,18 +1,20 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 
 // Define our two mode options
-type Mode = 'beginner' | 'advanced';
+export type Mode = 'beginner' | 'advanced';
 
 interface ModeContextType {
   mode: Mode;
-  toggleMode: (value?: Mode) => void;
+  setMode: React.Dispatch<React.SetStateAction<Mode>>;
 }
 
-// Create the context with default values
-const ModeContext = createContext<ModeContextType>({
+// Create the context with default values to avoid undefined checks
+const defaultContextValue: ModeContextType = {
   mode: 'beginner',
-  toggleMode: () => {},
-});
+  setMode: () => {} // This will be overridden by the actual implementation
+};
+
+const ModeContext = createContext<ModeContextType>(defaultContextValue);
 
 // Simple key for localStorage
 const STORAGE_KEY = 'pendle-mode';
@@ -28,6 +30,11 @@ export function ModeProvider({ children }: { children: ReactNode }) {
     }
   });
 
+  // Debug the current mode on mount
+  useEffect(() => {
+    console.log("Initial mode:", mode);
+  }, []);
+
   // Save to localStorage whenever mode changes
   useEffect(() => {
     try {
@@ -38,26 +45,15 @@ export function ModeProvider({ children }: { children: ReactNode }) {
     }
   }, [mode]);
 
-  // Toggle function to switch between modes
-  const toggleMode = (value?: Mode) => {
-    console.log("⚡ toggleMode called with:", value);
-    
-    if (value) {
-      // Set to a specific mode if provided
-      console.log("Setting mode directly to:", value);
-      setMode(value);
-    } else {
-      // Toggle between the two modes
-      console.log("Toggling from current mode:", mode);
-      const newMode = mode === 'beginner' ? 'advanced' : 'beginner';
-      console.log("New mode will be:", newMode);
-      setMode(newMode);
-    }
+  // Create the context value with the actual setState function
+  const contextValue: ModeContextType = {
+    mode,
+    setMode
   };
 
   // Provide the context values to children
   return (
-    <ModeContext.Provider value={{ mode, toggleMode }}>
+    <ModeContext.Provider value={contextValue}>
       {children}
     </ModeContext.Provider>
   );
@@ -65,9 +61,5 @@ export function ModeProvider({ children }: { children: ReactNode }) {
 
 // Custom hook to use the mode context
 export function useMode() {
-  const context = useContext(ModeContext);
-  if (!context) {
-    throw new Error("useMode must be used within a ModeProvider");
-  }
-  return context;
+  return useContext(ModeContext);
 }

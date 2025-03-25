@@ -1,33 +1,21 @@
 import React from "react";
-import { useMode } from "@/context/ModeContext";
+import { useMode, Mode } from "@/context/ModeContext";
 
 export function ModeToggle() {
-  const { mode, toggleMode } = useMode();
+  const { mode, setMode } = useMode();
 
-  // Function to specifically set to beginner mode
-  const setBeginner = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    toggleMode('beginner');
-  };
-
-  // Function to specifically set to advanced mode
-  const setAdvanced = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    toggleMode('advanced');
-  };
-
-  // Handle toggle click
-  const handleToggle = () => {
-    console.log("Toggle clicked, current mode:", mode);
-    toggleMode();
+  // Function to set mode directly
+  const switchMode = (newMode: Mode) => {
+    console.log(`Switching to ${newMode} mode`);
+    setMode(newMode);
   };
 
   return (
     <div className="flex items-center">
-      {/* Beginner label - clickable to switch to beginner mode */}
+      {/* Beginner label */}
       <span 
         className={`mr-3 text-sm font-medium ${mode === 'beginner' ? 'text-white' : 'text-gray-300'} cursor-pointer`}
-        onClick={setBeginner}
+        onClick={() => switchMode('beginner')}
       >
         Beginner
       </span>
@@ -35,8 +23,8 @@ export function ModeToggle() {
       {/* Toggle switch */}
       <button 
         aria-label={`Switch to ${mode === 'beginner' ? 'advanced' : 'beginner'} mode`}
-        onClick={handleToggle}
-        className="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in"
+        onClick={() => switchMode(mode === 'beginner' ? 'advanced' : 'beginner')}
+        className="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in focus:outline-none focus:ring-2 focus:ring-[#00bfa5]"
       >
         <div
           className={`absolute block w-6 h-6 rounded-full bg-white border-4 cursor-pointer transition-transform duration-200 ease-in ${
@@ -50,10 +38,10 @@ export function ModeToggle() {
         />
       </button>
       
-      {/* Advanced label - clickable to switch to advanced mode */}
+      {/* Advanced label */}
       <span 
         className={`text-sm font-medium ${mode === 'advanced' ? 'text-white' : 'text-gray-300'} cursor-pointer`}
-        onClick={setAdvanced}
+        onClick={() => switchMode('advanced')}
       >
         Advanced
       </span>
