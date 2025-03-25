@@ -9,12 +9,6 @@ This is a simplified demo UI for Pendle Finance, a DeFi yield trading platform. 
 - **Simplified Product Offerings**: Users can choose one of three products, to simplify the UI and UX.
 - **Quest System**: Gamified Quests incentivize users to try different types of transactions, track progress, and earn rewards.
 
-## Tech Stack
-- **Frontend**: React with TypeScript, TailwindCSS
-- **State Management**: React Context API
-- **Routing**: Wouter
-- **UI Components**: Radix UI, Lucide React Icons
-
 ## Screenshots
 
 ### Homepage
@@ -22,6 +16,13 @@ This is a simplified demo UI for Pendle Finance, a DeFi yield trading platform. 
 
 ### Quest System
 ![Pendle Finance Quest System](./attached_assets/demo_quests.png)
+
+## Tech Stack
+- **Frontend**: React with TypeScript, TailwindCSS
+- **State Management**: React Context API
+- **Routing**: Wouter
+- **UI Components**: Radix UI, Lucide React Icons
+
 
 ## Development
 To run the application locally:
