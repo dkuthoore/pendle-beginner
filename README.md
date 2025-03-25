@@ -3,7 +3,8 @@
 
 ## Overview
 This is a simplified demo UI for Pendle Finance, a DeFi yield trading platform. The application showcases how first-time users and beginners  can interact with Pendle in a simplified, user-friendly interface.
-Please access the app here: https://pendle-beginner-demo.replit.app/
+
+**Please access the app here: https://pendle-beginner-demo.replit.app/**
 
 ## Features
 - **Beginner/Advanced Mode Toggle**: Users can switch between simplified and advanced views based on their familiarity with DeFi.
