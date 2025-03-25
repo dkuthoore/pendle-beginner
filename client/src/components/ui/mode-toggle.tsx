@@ -4,6 +4,19 @@ import { useMode } from "@/context/ModeContext";
 export function ModeToggle() {
   const { mode, toggleMode } = useMode();
 
+  // Function to specifically set to beginner mode
+  const setBeginner = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    toggleMode('beginner');
+  };
+
+  // Function to specifically set to advanced mode
+  const setAdvanced = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    toggleMode('advanced');
+  };
+
+  // Handle toggle click
   const handleToggle = () => {
     console.log("Toggle clicked, current mode:", mode);
     toggleMode();
@@ -11,8 +24,17 @@ export function ModeToggle() {
 
   return (
     <div className="flex items-center">
-      <span className={`mr-3 text-sm font-medium ${mode === 'beginner' ? 'text-white' : 'text-gray-300'}`}>Beginner</span>
+      {/* Beginner label - clickable to switch to beginner mode */}
+      <span 
+        className={`mr-3 text-sm font-medium ${mode === 'beginner' ? 'text-white' : 'text-gray-300'} cursor-pointer`}
+        onClick={setBeginner}
+      >
+        Beginner
+      </span>
+      
+      {/* Toggle switch */}
       <button 
+        aria-label={`Switch to ${mode === 'beginner' ? 'advanced' : 'beginner'} mode`}
         onClick={handleToggle}
         className="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in"
       >
@@ -27,7 +49,14 @@ export function ModeToggle() {
           }`}
         />
       </button>
-      <span className={`text-sm font-medium ${mode === 'advanced' ? 'text-white' : 'text-gray-300'}`}>Advanced</span>
+      
+      {/* Advanced label - clickable to switch to advanced mode */}
+      <span 
+        className={`text-sm font-medium ${mode === 'advanced' ? 'text-white' : 'text-gray-300'} cursor-pointer`}
+        onClick={setAdvanced}
+      >
+        Advanced
+      </span>
     </div>
   );
 }
