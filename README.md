@@ -17,8 +17,13 @@ This is a simplified demo UI for Pendle Finance, a DeFi yield trading platform. 
 - **Routing**: Wouter
 - **UI Components**: Radix UI, Lucide React Icons
 
-## Screenshot
-![Pendle Finance Homepage](./attached_assets/image_1742875346112.png)
+## Screenshots
+
+### Homepage
+![Pendle Finance Homepage](./attached_assets/demo_home.png)
+
+### Quest System
+![Pendle Finance Quest System](./attached_assets/demo_quests.png)
 
 ## Development
 To run the application locally:
